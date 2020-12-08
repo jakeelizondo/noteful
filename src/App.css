@@ -1,38 +1,104 @@
-.App {
+header {
   text-align: center;
+  background-color: lightblue;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  margin: 0;
+  padding: 20px 0px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app-window {
+  display: flex;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.side-bar-section {
+  flex: 1;
+}
+
+.main {
+  flex: 2;
+}
+
+/* sidebar stylings */
+
+.selected {
+  background-color: green !important;
+}
+
+.side-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.side-bar button {
+  margin: 0px 10px;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.folder-link {
+  margin: 20px 10px;
+  padding-top: 15px;
+  width: 200px;
+  height: 50px;
+  background-color: red;
+  border-radius: 5px;
+  text-align: center;
   color: white;
+  font-size: 20px;
+  font-weight: 500;
 }
 
-.App-link {
-  color: #61dafb;
+.note-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.note-bar h2 {
+  background-color: red;
+  width: 200px;
+  height: 50px;
+  padding-top: 15px;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.note-bar button {
+  margin: 20px 10px;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+}
+
+/* note stylings */
+
+.note {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 30px;
+  padding: 0px 15px 15px 15px;
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+.note-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.note button {
+  font-weight: 600;
+  width: 150px;
+  height: 50px;
+  font-size: 15px;
 }
