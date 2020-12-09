@@ -1,27 +1,57 @@
 import React from 'react';
 import { format } from 'date-fns';
+import AppContext from '../AppContext';
 
-function Note(props) {
-  const noteId = props.match.params.noteId;
+class Note extends React.Component {
+  static contextType = AppContext;
 
-  let note = props.notes.filter((note) => note.id === noteId);
-  note = note[0];
+  handleDelete = (noteId) => {
+    const deleteUrl = `http://localhost:9090/notes/${noteId}`;
 
-  let date = new Date(note.modified);
-  let formatted = format(date, 'do LLL yyyy');
+    fetch(deleteUrl, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        } else {
+          this.context.handleDelete(noteId);
+          this.props.history.push('/');
+        }
+      })
+      .catch((error) => console.log(error));
+  };
 
-  return (
-    <section className="note">
-      <div className="note-title">
-        <h2>{note.name}</h2>
-      </div>
-      <div className="note-details">
-        <p>Note modified on: {formatted}</p>
-        <button>Delete Note</button>
-      </div>
-      <div>{note.content}</div>
-    </section>
-  );
+  render() {
+    const { notes } = this.context;
+    const noteId = this.props.match.params.noteId;
+
+    let note = notes.find((note) => note.id === noteId) || {
+      id: noteId,
+      modified: Date.now(),
+    };
+
+    let date = new Date(note.modified);
+    let formatted = format(date, 'do LLL yyyy');
+
+    return (
+      <section className="note">
+        <div className="note-title">
+          <h2>{note.name}</h2>
+        </div>
+        <div className="note-details">
+          <p>Note modified on: {formatted}</p>
+          <button onClick={() => this.handleDelete(note.id)}>
+            Delete Note
+          </button>
+        </div>
+        <div>{note.content}</div>
+      </section>
+    );
+  }
 }
 
 export default Note;
