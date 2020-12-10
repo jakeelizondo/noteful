@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import AppContext from '../AppContext';
 
 function ListSideBar() {
@@ -7,6 +7,10 @@ function ListSideBar() {
     <AppContext.Consumer>
       {({ folders }) => (
         <div className="side-bar">
+          <Link to="/add-folder">
+            <button className="add-folder-button">Add Folder</button>
+          </Link>
+
           {folders.map((folder) => {
             return (
               <NavLink
@@ -18,7 +22,9 @@ function ListSideBar() {
               </NavLink>
             );
           })}
-          <button>Add Folder</button>
+          <button className="add-folder-button">
+            <Link to="/add-folder">Add Folder</Link>
+          </button>
         </div>
       )}
     </AppContext.Consumer>

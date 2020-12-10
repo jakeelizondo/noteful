@@ -34,9 +34,9 @@ class NoteList extends React.Component {
       return (
         <li className="note" key={note.id}>
           <div>
-            <Link to={`/note/${note.id}`}>
-              <h2>{note.name}</h2>
-            </Link>
+            <h2>
+              <Link to={`/note/${note.id}`}>{note.name}</Link>
+            </h2>
           </div>
           <div>
             <p>Note modified on: {formatted}</p>
@@ -49,9 +49,12 @@ class NoteList extends React.Component {
     });
 
     return (
-      <div>
+      <div className="list">
+        <Link to="/add-note">
+          <button className="add-note">Add Note</button>
+        </Link>
+
         <ul>{notesArray}</ul>
-        <button>Add Note</button>
       </div>
     );
   }

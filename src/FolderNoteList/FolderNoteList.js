@@ -38,9 +38,9 @@ class FolderNoteList extends React.Component {
       return (
         <li className="note" key={note.id}>
           <div>
-            <Link to={`/note/${note.id}`}>
-              <h2>{note.name}</h2>
-            </Link>
+            <h2>
+              <Link to={`/note/${note.id}`}>{note.name}</Link>
+            </h2>
           </div>
           <div>
             <p>Note modified on: {formatted}</p>
@@ -53,9 +53,18 @@ class FolderNoteList extends React.Component {
     });
 
     return (
-      <div>
+      <div className="list">
+        <Link to="/add-note">
+          <button className="add-note">Add Note</button>
+        </Link>
+
+        {notesArray.length === 0 && (
+          <p>
+            Looks like there are no notes in this folder! Go ahead and add some
+            to see them here
+          </p>
+        )}
         <ul>{notesArray}</ul>
-        <button>Add Note</button>
       </div>
     );
   }

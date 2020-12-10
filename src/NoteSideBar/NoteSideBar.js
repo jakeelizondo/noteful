@@ -5,15 +5,14 @@ class NoteSideBar extends React.Component {
   static contextType = AppContext;
 
   render() {
-    console.log(this.context);
     const { folders, notes } = this.context;
-    console.log(notes);
+
     const currentNoteId = this.props.match.params.noteId;
 
     const currentNote = notes.find((note) => note.id === currentNoteId) || {
-      folderId: currentNoteId,
+      folderId: '',
     };
-    console.log(currentNote);
+
     const currentFolderId = currentNote.folderId;
     const currentFolder = folders.find(
       (folder) => folder.id === currentFolderId

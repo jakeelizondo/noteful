@@ -7,6 +7,10 @@ function MainSideBar() {
     <AppContext.Consumer>
       {({ folders }) => (
         <div className="side-bar">
+          <Link to="/add-folder">
+            <button className="add-folder-button">Add Folder</button>
+          </Link>
+
           {folders.map((folder) => {
             return (
               <Link
@@ -18,7 +22,6 @@ function MainSideBar() {
               </Link>
             );
           })}
-          <button>Add Folder</button>
         </div>
       )}
     </AppContext.Consumer>

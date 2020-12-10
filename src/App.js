@@ -10,6 +10,10 @@ import FolderNoteList from './FolderNoteList/FolderNoteList';
 import Note from './Note/Note';
 import NotFound from './NotFound/NotFound';
 import AppContext from './AppContext';
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
+import SideBarError from './ErrorBoundaryComps/SideBarError';
+import NoteListWindowError from './ErrorBoundaryComps/NoteListWindowError';
 
 class App extends React.Component {
   state = {
@@ -27,7 +31,6 @@ class App extends React.Component {
         throw new Error(response.status);
       })
       .then((data) => {
-        console.log(data);
         this.setState({ folders: data });
       })
       .catch((error) => console.log(error.message));
@@ -43,18 +46,23 @@ class App extends React.Component {
         throw new Error(response.status);
       })
       .then((data) => {
-        console.log(data);
         this.setState({ notes: data });
       })
       .catch((error) => console.log(error.message));
   };
 
-  handleDelete = (noteId) => {
-    console.log(`need to delete ${noteId} from state`);
-    console.log(this.state.notes.length);
+  handleNoteDelete = (noteId) => {
     let newNotes = this.state.notes.filter((note) => note.id !== noteId);
-    console.log(newNotes.length);
+
     this.setState({ notes: newNotes });
+  };
+
+  handleAddFolder = (folder) => {
+    this.setState({ folders: [...this.state.folders, folder] });
+  };
+
+  handleAddNote = (note) => {
+    this.setState({ notes: [...this.state.notes, note] });
   };
 
   componentDidMount() {
@@ -63,7 +71,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('you can do this Jake');
     return (
       <main className="App">
         <Header />
@@ -71,24 +78,36 @@ class App extends React.Component {
           value={{
             folders: this.state.folders,
             notes: this.state.notes,
-            handleDelete: this.handleDelete,
+            handleNoteDelete: this.handleNoteDelete,
+            handleAddFolder: this.handleAddFolder,
+            handleAddNote: this.handleAddNote,
           }}
         >
-          <div className="app-window">
-            <section className="side-bar-section">
-              <Route exact path="/" component={MainSideBar} />
-              <Route exact path="/folder/:folderId" component={ListSideBar} />
-              <Route path="/note/:noteId" component={NoteSideBar} />
-            </section>
-            <section className="main">
-              <Switch>
-                <Route exact path="/" component={NoteList} />
-                <Route path="/folder/:folderId" component={FolderNoteList} />
-                <Route path="/note/:noteId" component={Note} />
-                <Route component={NotFound} />
-              </Switch>
-            </section>
-          </div>
+          <Switch>
+            <Route exact path="/add-folder" component={AddFolder} />
+            <Route exact path="/add-note" component={AddNote} />
+            <div className="app-window">
+              <section className="side-bar-section">
+                <SideBarError>
+                  <Route exact path="/" component={MainSideBar} />
+                  <Route
+                    exact
+                    path="/folder/:folderId"
+                    component={ListSideBar}
+                  />
+                  <Route path="/note/:noteId" component={NoteSideBar} />
+                </SideBarError>
+              </section>
+              <section className="main">
+                <NoteListWindowError>
+                  <Route exact path="/" component={NoteList} />
+                  <Route path="/folder/:folderId" component={FolderNoteList} />
+                  <Route path="/note/:noteId" component={Note} />
+                </NoteListWindowError>
+              </section>
+            </div>
+            <Route component={NotFound} />
+          </Switch>
         </AppContext.Provider>
       </main>
     );

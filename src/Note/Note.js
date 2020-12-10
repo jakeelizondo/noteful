@@ -18,7 +18,7 @@ class Note extends React.Component {
         if (!response.ok) {
           throw new Error(response.status);
         } else {
-          this.context.handleDelete(noteId);
+          this.context.handleNoteDelete(noteId);
           this.props.history.push('/');
         }
       })
@@ -30,8 +30,7 @@ class Note extends React.Component {
     const noteId = this.props.match.params.noteId;
 
     let note = notes.find((note) => note.id === noteId) || {
-      id: noteId,
-      modified: Date.now(),
+      modified: new Date().toISOString(),
     };
 
     let date = new Date(note.modified);
@@ -40,6 +39,7 @@ class Note extends React.Component {
     return (
       <section className="note">
         <div className="note-title">
+          <div className="christmas"></div>
           <h2>{note.name}</h2>
         </div>
         <div className="note-details">
