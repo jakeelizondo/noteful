@@ -1,7 +1,11 @@
 import React from 'react';
 import AppContext from '../AppContext';
+import PropTypes from 'prop-types';
 
 class AddFolder extends React.Component {
+  static defaultProps = {
+    history: { goBack: () => {} },
+  };
   state = { folderName: '' };
 
   static contextType = AppContext;
@@ -56,5 +60,9 @@ class AddFolder extends React.Component {
     );
   }
 }
+
+AddFolder.propTypes = {
+  history: PropTypes.object.isRequired,
+};
 
 export default AddFolder;

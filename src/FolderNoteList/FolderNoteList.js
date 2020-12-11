@@ -19,7 +19,7 @@ class FolderNoteList extends React.Component {
         if (!response.ok) {
           throw new Error(response.status);
         } else {
-          this.context.handleDelete(noteId);
+          this.context.handleNoteDelete(noteId);
         }
       })
       .catch((error) => console.log(error));

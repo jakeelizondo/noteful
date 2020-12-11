@@ -14,6 +14,7 @@ function ListSideBar() {
           {folders.map((folder) => {
             return (
               <NavLink
+                key={folder.id}
                 to={`/folder/${folder.id}`}
                 className="folder-link"
                 activeClassName="selected"

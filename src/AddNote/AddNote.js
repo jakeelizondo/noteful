@@ -1,7 +1,11 @@
 import React from 'react';
 import AppContext from '../AppContext';
+import PropTypes from 'prop-types';
 
 class AddNote extends React.Component {
+  static defaultProps = {
+    history: { goBack: () => {} },
+  };
   state = { name: '', content: '', folderId: '', modified: '', touched: false };
 
   static contextType = AppContext;
@@ -117,5 +121,9 @@ class AddNote extends React.Component {
     );
   }
 }
+
+AddNote.propTypes = {
+  history: PropTypes.object.isRequired,
+};
 
 export default AddNote;
